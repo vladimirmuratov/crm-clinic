@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "npm install" ,
-    "start": "cross-env NODE_ENV=production concurrently \"node index.js\" \"cd client && npm install\" \"cd client && npm run start\"",
+    "start": "concurrently \"node index.js\" \"cd client && npm install\" \"cd client && npm run start\"",
     "serve": "nodemon index.js",
     "client": "npm run start --prefix client",
     "dev": "cross-env NODE_ENV=development concurrently \"npm run serve\" \"npm run client\""
