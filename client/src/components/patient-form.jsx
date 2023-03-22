@@ -122,7 +122,7 @@ const PatientForm = ({patient = undefined}) => {
                     <Textarea {...register("info")}/>
                 </FormControl>
             </Box>
-            <Box mt="3" display="flex" justifyContent="space-between">
+            <Box my="3" display="flex" justifyContent="space-between">
                 <Button
                     onClick={onDelete}
                     visibility={patient?._id ? 'visible' : 'hidden'}

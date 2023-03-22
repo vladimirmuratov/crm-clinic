@@ -59,7 +59,7 @@ const MainPage = () => {
                 bgColor="#2196f3"
                 color="white"
                 p="5"
-                my={{md: "5"}}
+                my="2"
                 borderRadius="10"
             >
                 <Heading size={{base: "lg", md: "xl"}} mb="5">{`Общее количество пациентов: ${patients?.length} чел.`}</Heading>
