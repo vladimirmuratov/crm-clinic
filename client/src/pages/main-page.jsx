@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import MainLayout from '../layouts/main-layout'
 import {useStore} from '../services/store.service'
-import {Box, Divider, Heading, Text} from '@chakra-ui/react'
+import {Box, Divider, Heading, Spinner, Text} from '@chakra-ui/react'
 import moment from 'moment'
 import 'moment/locale/ru'
 
@@ -55,28 +55,35 @@ const MainPage = () => {
 
     return (
         <MainLayout>
-            <Box
-                bgColor="#2196f3"
-                color="white"
-                p="5"
-                my="2"
-                borderRadius="10"
-            >
-                <Heading size={{base: "lg", md: "xl"}} mb="5">{`Общее количество пациентов: ${patients?.length} чел.`}</Heading>
-                <Divider/>
-                <Heading size={{base: "lg", md: "xl"}} mt="3" mb="5">{`Общая сумма: ${totalAmount.toLocaleString()} руб.`}</Heading>
-                <Divider/>
-                <Heading size={{base: "md", md: "lg"}} py="3">Детализация:</Heading>
-                {soredAmount.length
-                    ? soredAmount.map((item, index) => {
-                        const key = Object.keys(item)
-                        const value = item[key]
+            {!patients.length
+                ? (<Box display="flex" alignItems="center">
+                    <Spinner color="red.500" size='xl'/>
+                </Box>)
+                : (<Box
+                    bgColor="#2196f3"
+                    color="white"
+                    p="5"
+                    my="2"
+                    borderRadius="10"
+                >
+                    <Heading size={{base: "lg", md: "xl"}}
+                             mb="5">{`Общее количество пациентов: ${patients?.length} чел.`}</Heading>
+                    <Divider/>
+                    <Heading size={{base: "lg", md: "xl"}} mt="3"
+                             mb="5">{`Общая сумма: ${totalAmount.toLocaleString()} руб.`}</Heading>
+                    <Divider/>
+                    <Heading size={{base: "md", md: "lg"}} py="3">Детализация:</Heading>
+                    {soredAmount.length
+                        ? soredAmount.map((item, index) => {
+                            const key = Object.keys(item)
+                            const value = item[key]
 
-                        return <Text key={index}>{`${key}: ${value.toLocaleString()} руб.`}</Text>
-                    })
-                    : ''
-                }
-            </Box>
+                            return <Text key={index}>{`${key}: ${value.toLocaleString()} руб.`}</Text>
+                        })
+                        : ''
+                    }
+                </Box>)
+            }
         </MainLayout>
     )
 }
