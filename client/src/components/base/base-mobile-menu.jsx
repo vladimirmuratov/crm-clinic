@@ -6,14 +6,15 @@ import {
     DrawerContent,
     DrawerHeader,
     DrawerOverlay,
-    Divider
+    Divider, Box, Text
 } from '@chakra-ui/react'
 import {NavLink} from 'react-router-dom'
 import {useStore} from '../../services/store.service'
 import {linksSidebar} from '../../config'
+import {ExportCSV} from '../export-csv'
 
 const BaseMobileMenu = ({onClose, isOpen}) => {
-    const {isAuth, logout} = useStore(state => state)
+    const {isAuth, logout, patients} = useStore(state => state)
 
     const activeClass = (isActive) => {
         return {
@@ -49,7 +50,19 @@ const BaseMobileMenu = ({onClose, isOpen}) => {
                     }
                     <Divider/>
                     {isAuth
-                        ? <p onClick={handleLogout}>Выйти</p>
+                        ? (<>
+                            {patients.length
+                                ? (<>
+                                    <Divider/>
+                                    <Box my='2'>
+                                        <ExportCSV csvData={patients}/>
+                                    </Box>
+                                    <Divider/>
+                                </>)
+                                : ''
+                            }
+                            <Text mt="2" onClick={handleLogout}>Выйти</Text>
+                        </>)
                         : (<>
                             <NavLink
                                 to="/login"
